@@ -73,15 +73,6 @@
     <Compile Include="ManagerWindows\ManagerOrdersWindow.xaml.cs">
       <DependentUpon>ManagerOrdersWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserWindows\BasketView.xaml.cs">
-      <DependentUpon>BasketView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Classes\BytesToImageConverter.cs" />
-    <Compile Include="Classes\Commands.cs" />
-    <Compile Include="Classes\DataTransfer.cs" />
-    <Compile Include="ManagerWindows\ManagerWindow.xaml.cs">
-      <DependentUpon>ManagerWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,6 +87,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="UserWindows\BasketView.xaml.cs">
+      <DependentUpon>BasketView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\BytesToImageConverter.cs" />
+    <Compile Include="Classes\Commands.cs" />
+    <Compile Include="Classes\DataTransfer.cs" />
+    <Compile Include="ManagerWindows\ManagerWindow.xaml.cs">
+      <DependentUpon>ManagerWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserWindows\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>

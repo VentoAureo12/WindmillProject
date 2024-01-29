@@ -30,6 +30,7 @@
           <Property Name="ID_пользователя" Type="int" />
           <Property Name="ID_пункта_выдачи" Type="int" />
           <Property Name="Статус_заказа" Type="int" />
+          <Property Name="Сумма_заказа" Type="int" />
         </EntityType>
         <EntityType Name="Заказ_Товар">
           <Key>
@@ -38,6 +39,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_заказа" Type="int" />
           <Property Name="ID_товара" Type="int" />
+          <Property Name="Количество_товара" Type="int" />
         </EntityType>
         <EntityType Name="Пользователь">
           <Key>
@@ -252,6 +254,7 @@
           <Property Name="ID_пользователя" Type="Int32" />
           <Property Name="ID_пункта_выдачи" Type="Int32" />
           <Property Name="Статус_заказа" Type="Int32" />
+          <Property Name="Сумма_заказа" Type="Int32" />
           <NavigationProperty Name="Пользователь" Relationship="Self.FK_Заказ_Пользователь" FromRole="Заказ" ToRole="Пользователь" />
           <NavigationProperty Name="Пункт_Выдачи" Relationship="Self.FK_Заказ_Пункт_Выдачи" FromRole="Заказ" ToRole="Пункт_Выдачи" />
           <NavigationProperty Name="Статус_заказа1" Relationship="Self.FK_Заказ_Статус_заказа" FromRole="Заказ" ToRole="Статус_заказа" />
@@ -264,6 +267,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_заказа" Type="Int32" />
           <Property Name="ID_товара" Type="Int32" />
+          <Property Name="Количество_товара" Type="Int32" />
           <NavigationProperty Name="Заказ" Relationship="Self.FK_Заказ_Товар_Заказ" FromRole="Заказ_Товар" ToRole="Заказ" />
           <NavigationProperty Name="Товар" Relationship="Self.FK_Заказ_Товар_Товар" FromRole="Заказ_Товар" ToRole="Товар" />
         </EntityType>
@@ -488,6 +492,7 @@
                 <ScalarProperty Name="ID_пользователя" ColumnName="ID_пользователя" />
                 <ScalarProperty Name="ID_пункта_выдачи" ColumnName="ID_пункта_выдачи" />
                 <ScalarProperty Name="Статус_заказа" ColumnName="Статус_заказа" />
+                <ScalarProperty Name="Сумма_заказа" ColumnName="Сумма_заказа" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -497,6 +502,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ID_заказа" ColumnName="ID_заказа" />
                 <ScalarProperty Name="ID_товара" ColumnName="ID_товара" />
+                <ScalarProperty Name="Количество_товара" ColumnName="Количество_товара" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

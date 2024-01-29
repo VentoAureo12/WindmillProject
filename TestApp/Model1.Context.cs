@@ -20,7 +20,6 @@ namespace TestApp
             : base("name=ElectroShopBDEntities")
         {
         }
-
         public static ElectroShopBDEntities GetContext()
         {
             if (_context == null)
@@ -29,7 +28,7 @@ namespace TestApp
             }
             return _context;
         }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

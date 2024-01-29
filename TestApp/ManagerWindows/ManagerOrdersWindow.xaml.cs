@@ -19,14 +19,30 @@ namespace TestApp.ManagerWindows
     /// </summary>
     public partial class ManagerOrdersWindow : Window
     {
-        public ManagerOrdersWindow()
+        public ManagerOrdersWindow(Пользователь selectedUser)
         {
+            if(selectedUser == null)
+            {
+                MessageBox.Show("Данное окно не работает по причине отсутствия данных");
+                return;
+            }
             InitializeComponent();
+            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == selectedUser.ID).ToList();
         }
 
         private void NameSearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
+            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID.ToString().Contains(NameSearchField.Text)).ToList();
+        }
 
+        private void OrdersData_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (OrdersData.SelectedItem != null)
+            {
+                Заказ selectedOrder = (Заказ)OrdersData.SelectedItem;
+                ManagerOrderDetailsWindow detailWindow = new ManagerOrderDetailsWindow(selectedOrder);
+                detailWindow.Show();
+            }
         }
     }
 }

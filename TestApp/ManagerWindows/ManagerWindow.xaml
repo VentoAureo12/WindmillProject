@@ -60,11 +60,11 @@
                 <TextBox Text="" Grid.Row="1" x:Name="NameSearchField" Height="25" TextChanged="NameSearchField_TextChanged"/>
             </Grid>
         </Border>
-        <DataGrid>
+        <DataGrid x:Name="ClientDataGrid" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="8" MouseDoubleClick="ClientDataGrid_MouseDoubleClick" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Фамилия" Binding="{Binding ID, Mode=TwoWay}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Имя"></DataGridTextColumn>
-                <DataGridTextColumn Header="Отчество" Binding="{Binding Цена, Mode=Twoway}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Фамилия, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Имя, Mode=TwoWay}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Отчество" Binding="{Binding Отчество, Mode=Twoway}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

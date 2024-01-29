@@ -24,6 +24,7 @@ namespace TestApp
         public Nullable<int> ID_пользователя { get; set; }
         public Nullable<int> ID_пункта_выдачи { get; set; }
         public Nullable<int> Статус_заказа { get; set; }
+        public Nullable<int> Сумма_заказа { get; set; }
     
         public virtual Пользователь Пользователь { get; set; }
         public virtual Пункт_Выдачи Пункт_Выдачи { get; set; }

@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e9c874c663ad4af0b2efae40aded3a7a" Name="Diagram1">
+      <Diagram DiagramId="04af80a2aca949118deb71cafb8eb351" Name="Diagram1">
         <EntityTypeShape EntityType="ElectroShopBDModel.Вид_товара" Width="1.5" PointX="6" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectroShopBDModel.Данные_пользователя" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectroShopBDModel.Заказ" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ElectroShopBDModel.Заказ_Товар" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectroShopBDModel.Заказ" Width="1.5" PointX="8.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElectroShopBDModel.Заказ_Товар" Width="1.5" PointX="10.5" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectroShopBDModel.Пользователь" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectroShopBDModel.Пункт_Выдачи" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ElectroShopBDModel.Роль_пользователя" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />

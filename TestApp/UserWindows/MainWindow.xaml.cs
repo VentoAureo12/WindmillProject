@@ -53,7 +53,7 @@ namespace TestApp
 
 
 
-            if (userData.Пользователь.Роль == 3)
+            if (userData.Пользователь.Роль == 2)
             {
                 if (userData == null)
                 {
@@ -68,7 +68,7 @@ namespace TestApp
                 }
             }
             else
-                if (userData.Пользователь.Роль == 2)
+                if (userData.Пользователь.Роль == 3)
             {
                 if (userData == null)
                 {

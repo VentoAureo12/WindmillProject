@@ -17,6 +17,7 @@ namespace TestApp
         public int ID { get; set; }
         public Nullable<int> ID_заказа { get; set; }
         public Nullable<int> ID_товара { get; set; }
+        public Nullable<int> Количество_товара { get; set; }
     
         public virtual Заказ Заказ { get; set; }
         public virtual Товар Товар { get; set; }
