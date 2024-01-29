@@ -20,6 +20,7 @@ namespace TestApp
     public partial class BasketView : Window
     {
         private List<Товар> basketItems = new List<Товар>();
+        private int price;
         public BasketView()
         {
             InitializeComponent();
@@ -34,7 +35,7 @@ namespace TestApp
         }
         private void updateResultSum()
         {
-            resultSum.Content = $"Итого:{basketItems.Sum(product => product.Цена)}";
+            resultSum.Content = $"Итого:{basketItems.Sum(product => product.Цена)} руб";
 
         }
 
@@ -60,10 +61,12 @@ namespace TestApp
             window.Show();
             this.Close();
         }
-
+        
         private void MakeOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show($"Вы точно хотите оформить заказ", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            price = (int)basketItems.Sum(product => product.Цена);
+
+            if (MessageBox.Show($"Вы точно хотите оформить заказ", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 int orderID = (int)ElectroShopBDEntities.GetContext().Заказ.Max(x => x.ID);
                 if (orderID == 0)
@@ -75,9 +78,10 @@ namespace TestApp
                     orderID++;
                 }
 
+                Заказ orderData = new Заказ();
+
                 foreach (int id in BasketClass.getBasket())
                 {
-                    Заказ orderData = new Заказ();
 
                     Заказ_Товар orderItemData = new Заказ_Товар();
 
@@ -88,12 +92,16 @@ namespace TestApp
 
                     orderData.ID = orderID;
                     orderData.ID_пользователя = DataTransfer.userID;
+                    orderData.Статус_заказа = 2;
                     orderData.ID_пункта_выдачи = deliveryID;
+                    orderData.Сумма_заказа = price; 
+
 
                     productID = ElectroShopBDEntities.GetContext().Товар.Where(u => u.ID == id).FirstOrDefault();
 
                     orderItemData.ID_товара = productID.ID;
                     orderItemData.ID_заказа = orderID;
+                    //orderItemData.Количество_товара = ????
 
                     ElectroShopBDEntities.GetContext().Заказ.Add(orderData);
                     ElectroShopBDEntities.GetContext().Заказ_Товар.Add(orderItemData);

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
-        Title="Окно формирования заказа" Height="450" Width="800">
+        Title="Окно формирования заказа" Height="800" Width="800" WindowStartupLocation="CenterOwner">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
@@ -16,7 +16,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Row="1" HorizontalAlignment="Center" Height="auto" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="auto" Name="BasketListView">
+        <ListView Grid.Row="1" HorizontalAlignment="Center" Height="700" Width="700" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Name="BasketListView">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Удалить из корзины" Click="MenuItem_Click"/>
@@ -24,12 +24,12 @@
             </ListView.ContextMenu>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxWidth="800"></WrapPanel>
+                    <WrapPanel Orientation="Vertical" HorizontalAlignment="Center"></WrapPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="250" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
