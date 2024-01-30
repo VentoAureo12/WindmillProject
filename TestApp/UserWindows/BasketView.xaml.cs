@@ -19,23 +19,41 @@ namespace TestApp
     /// </summary>
     public partial class BasketView : Window
     {
-        private List<Товар> basketItems = new List<Товар>();
+        private Dictionary<Товар, int> basketItemsCount;
         private int price;
         public BasketView()
         {
             InitializeComponent();
             DeliveryInput.ItemsSource = ElectroShopBDEntities.GetContext().Пункт_Выдачи.ToList();
-            basketItems = new List<Товар>();
+            basketItemsCount = new Dictionary<Товар, int>();
             foreach (int id in BasketClass.getBasket())
             {
-                basketItems.Add(ElectroShopBDEntities.GetContext().Товар.Find(id));
+                Товар product = ElectroShopBDEntities.GetContext().Товар.Find(id);
+                if (product != null)
+                {
+                    if (basketItemsCount.ContainsKey(product))
+                    {
+                        basketItemsCount[product]++;
+                    }
+                    else
+                    {
+                        basketItemsCount.Add(product, 1);
+                    }
+                }
             }
-            BasketListView.ItemsSource = basketItems;
+            BasketListView.ItemsSource = basketItemsCount.Select(pair => new
+            {
+                Изображение = pair.Key.Изображение,
+                Наименование = pair.Key.Наименование,
+                Цена = pair.Key.Цена,
+                Product = pair.Key.ID,
+                Quantity = pair.Value
+            });
             updateResultSum();
         }
         private void updateResultSum()
         {
-            resultSum.Content = $"Итого:{basketItems.Sum(product => product.Цена)} руб";
+            resultSum.Content = $"Итого:{basketItemsCount.Sum(pair => pair.Value * pair.Key.Цена)} руб";
 
         }
 
@@ -64,7 +82,6 @@ namespace TestApp
         
         private void MakeOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            price = (int)basketItems.Sum(product => product.Цена);
 
             if (MessageBox.Show($"Вы точно хотите оформить заказ", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
@@ -78,24 +95,25 @@ namespace TestApp
                     orderID++;
                 }
 
+
+
                 Заказ orderData = new Заказ();
+
+                int deliveryID = int.Parse(DeliveryInput.SelectedValue.ToString());
+
+                orderData.ID = orderID;
+                orderData.ID_пользователя = DataTransfer.userID;
+                orderData.Статус_заказа = 2;
+                orderData.ID_пункта_выдачи = deliveryID;
+                orderData.Сумма_заказа = price;
+
+                ElectroShopBDEntities.GetContext().Заказ.Add(orderData);
 
                 foreach (int id in BasketClass.getBasket())
                 {
-
                     Заказ_Товар orderItemData = new Заказ_Товар();
 
                     Товар productID = new Товар();
-
-
-                    int deliveryID = int.Parse(DeliveryInput.SelectedValue.ToString());
-
-                    orderData.ID = orderID;
-                    orderData.ID_пользователя = DataTransfer.userID;
-                    orderData.Статус_заказа = 2;
-                    orderData.ID_пункта_выдачи = deliveryID;
-                    orderData.Сумма_заказа = price; 
-
 
                     productID = ElectroShopBDEntities.GetContext().Товар.Where(u => u.ID == id).FirstOrDefault();
 
@@ -103,7 +121,6 @@ namespace TestApp
                     orderItemData.ID_заказа = orderID;
                     //orderItemData.Количество_товара = ????
 
-                    ElectroShopBDEntities.GetContext().Заказ.Add(orderData);
                     ElectroShopBDEntities.GetContext().Заказ_Товар.Add(orderItemData);
                 }
                 try

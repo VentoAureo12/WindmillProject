@@ -8,15 +8,15 @@
         Title="Окно формирования заказа" Height="800" Width="800" WindowStartupLocation="CenterOwner">
     <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Row="1" HorizontalAlignment="Center" Height="700" Width="700" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Name="BasketListView">
+        <ListView HorizontalAlignment="Left" Grid.Row="1" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="600" MaxWidth="600" VerticalAlignment="Top" Name="BasketListView">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Удалить из корзины" Click="MenuItem_Click"/>
@@ -24,7 +24,7 @@
             </ListView.ContextMenu>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Vertical" HorizontalAlignment="Center"></WrapPanel>
+                    <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" MaxWidth="400"></WrapPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
@@ -47,11 +47,22 @@
                     Grid.Row="0" Text="{Binding Наименование}">
 
                         </TextBlock>
-                        <TextBlock Grid.Row="2" Text="{Binding Цена}"></TextBlock>
+                        <TextBlock Grid.Row="2">
+                            <Run Text="{Binding Цена}" />
+                            <Run Text=" рублей" />
+                        </TextBlock>
+                        
+                <!--<StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="{Binding Quantity, StringFormat='Количество: {0}'}" Margin="5"/>
+                    <Button Content="+" Command="{Binding AddItemCommand}" CommandParameter="{Binding}" Margin="5"/>
+                    <Button Content="-" Command="{Binding RemoveItemCommand}" CommandParameter="{Binding}" Margin="5"/>
+                </StackPanel>-->
+                        
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        
         <Grid Grid.RowSpan="3" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
