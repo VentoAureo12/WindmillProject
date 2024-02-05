@@ -82,7 +82,7 @@
     <Compile Include="AdminWindows\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\ProductViewModel.cs" />
+    <Compile Include="Classes\BasketViewModel.cs" />
     <Compile Include="ManagerWindows\ManagerOrderDetailsWindow.xaml.cs">
       <DependentUpon>ManagerOrderDetailsWindow.xaml</DependentUpon>
     </Compile>

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.CommandWpf;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestApp.Classes;
+using TestApp;
 
 namespace TestApp
 {
@@ -19,12 +23,14 @@ namespace TestApp
     /// </summary>
     public partial class BasketView : Window
     {
+        private List<BasketItemViewModel> BasketListViewItems;
         private Dictionary<Товар, int> basketItemsCount;
-        private int price;
+        int price;
         public BasketView()
         {
             InitializeComponent();
             DeliveryInput.ItemsSource = ElectroShopBDEntities.GetContext().Пункт_Выдачи.ToList();
+            BasketListViewItems = new List<BasketItemViewModel>();
             basketItemsCount = new Dictionary<Товар, int>();
             foreach (int id in BasketClass.getBasket())
             {
@@ -41,20 +47,46 @@ namespace TestApp
                     }
                 }
             }
-            BasketListView.ItemsSource = basketItemsCount.Select(pair => new
+            BasketListView.ItemsSource = basketItemsCount.Select(pair => new BasketItemViewModel
             {
                 Изображение = pair.Key.Изображение,
                 Наименование = pair.Key.Наименование,
-                Цена = pair.Key.Цена,
+                Цена = (int)pair.Key.Цена,
                 Product = pair.Key.ID,
                 Quantity = pair.Value
             });
             updateResultSum();
         }
+
         private void updateResultSum()
         {
-            resultSum.Content = $"Итого:{basketItemsCount.Sum(pair => pair.Value * pair.Key.Цена)} руб";
+            basketItemsCount.Clear();
 
+            foreach (var basketItem in BasketListView.Items)
+            {
+                if (basketItem is BasketItemViewModel item)
+                {
+                    basketItemsCount[item.Product] = item.Quantity;
+                }
+            }
+
+            int totalSum = 0;
+
+            foreach (var pair in basketItemsCount)
+            {
+                int productId = pair.Key;
+                int quantity = pair.Value;
+
+                Товар product = ElectroShopBDEntities.GetContext().Товар.Find(productId);
+
+                if (product != null)
+                {
+                    totalSum += quantity * product.Цена;
+                }
+            }
+
+            resultSum.Content = $"Итого: {totalSum} руб";
+            price = (int)basketItemsCount.Sum(pair => pair.Value * pair.Key.Цена);
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -73,6 +105,33 @@ namespace TestApp
             updateResultSum();
         }
 
+        private void AddItem_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                BasketItemViewModel selectedItem = button.DataContext as BasketItemViewModel;
+                if (selectedItem != null)
+                {
+                    selectedItem.Quantity++;
+                    updateResultSum();
+                }
+            }
+        }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                BasketItemViewModel selectedItem = button.DataContext as BasketItemViewModel;
+                if (selectedItem != null && selectedItem.Quantity > 1)
+                {
+                    selectedItem.Quantity--;
+                    updateResultSum();
+                }
+            }
+        }
         private void SnapBackButton_Click(object sender, RoutedEventArgs e)
         {
             UserWindow window = new UserWindow();
@@ -133,6 +192,7 @@ namespace TestApp
                 }
                 MessageBox.Show("Заказ оформлен!");
             }
+
         }
     }
 }

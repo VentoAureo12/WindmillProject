@@ -51,13 +51,13 @@
                             <Run Text="{Binding Цена}" />
                             <Run Text=" рублей" />
                         </TextBlock>
-                        
-                <!--<StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="{Binding Quantity, StringFormat='Количество: {0}'}" Margin="5"/>
-                    <Button Content="+" Command="{Binding AddItemCommand}" CommandParameter="{Binding}" Margin="5"/>
-                    <Button Content="-" Command="{Binding RemoveItemCommand}" CommandParameter="{Binding}" Margin="5"/>
-                </StackPanel>-->
-                        
+
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding Quantity, StringFormat='Количество: {0}'}" Margin="5"/>
+                            <Button Content="+" Click="AddItem_Click" Margin="5"/>
+                            <Button Content="-" Click="RemoveItem_Click"  Margin="5"/>
+                        </StackPanel>
+
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
