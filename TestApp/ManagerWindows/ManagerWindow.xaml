@@ -66,6 +66,11 @@
                 <DataGridTextColumn Header="Имя" Binding="{Binding Имя, Mode=TwoWay}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Отчество, Mode=Twoway}"></DataGridTextColumn>
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Отчёт" Click="Report_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
     </Grid>
     <Window.CommandBindings>
