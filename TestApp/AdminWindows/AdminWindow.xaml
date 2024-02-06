@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
-        Title="Меню администратора" MinHeight="800" MinWidth="800">
+        Title="Меню администратора" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <local:BytesToImageConverter x:Key="ImageConverter"/>
     </Window.Resources>
@@ -18,7 +18,7 @@
         <ColumnDefinition Width="0.2*"></ColumnDefinition>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-        <RowDefinition Height="20" ></RowDefinition>
+        <RowDefinition Height="40" ></RowDefinition>
         <RowDefinition Height="35"></RowDefinition>
         <RowDefinition Height="50"></RowDefinition>
         <RowDefinition></RowDefinition>
@@ -77,7 +77,7 @@
                 <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Название</TextBlock>
                 <TextBox Text="" Grid.Row="1" x:Name="NameSearchField" TextChanged="NameSearchField_TextChanged"  Height="25"></TextBox>
                 <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">Тип товара</TextBlock>
-                <ComboBox Grid.Row="3" x:Name="TypeSearchComboBox" SelectionChanged="TypeSearchComboBox_SelectionChanged" Height="25" Text="Выберите тип товара"></ComboBox>
+                <ComboBox Grid.Row="3" x:Name="TypeSearchComboBox" SelectionChanged="TypeSearchComboBox_SelectionChanged" HorizontalAlignment="Center" Height="45" Width="130" Text="Выберите тип товара"></ComboBox>
             </Grid>
         </Border>
         <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5">

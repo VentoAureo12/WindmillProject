@@ -98,6 +98,9 @@
     <Compile Include="UserWindows\RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserWindows\UserOrderDetails.xaml.cs">
+      <DependentUpon>UserOrderDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserWindows\UserOrdersWindow.xaml.cs">
       <DependentUpon>UserOrdersWindow.xaml</DependentUpon>
     </Compile>
@@ -165,6 +168,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserWindows\RegistrationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserWindows\UserOrderDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

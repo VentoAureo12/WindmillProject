@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TestApp"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
-        Title="Окно формирования заказа" MinHeight="800" MinWidth="800" WindowStartupLocation="CenterOwner" ui:WindowHelper.UseModernWindowStyle="True">
+        Title="Окно формирования заказа" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner" ui:WindowHelper.UseModernWindowStyle="True">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"></RowDefinition>
@@ -70,11 +70,11 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ComboBox x:Name="DeliveryInput" Grid.Row="1" HorizontalAlignment="Center" Height="36" VerticalAlignment="Top" Width="160" DisplayMemberPath="Адрес_пункта_выдачи" SelectedValuePath="ID" />
-            <Label Grid.Row="0" Content="Пункт выдачи:" HorizontalAlignment="Left" Height="44" Margin="1,63,0,0" VerticalAlignment="Top" Width="182" FontSize="25"/>
-            <Button x:Name="MakeOrderButton" Content="Сформировать заказ" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top" Width="160" Click="MakeOrderButton_Click"/>
+            <ComboBox x:Name="DeliveryInput" Grid.Row="1" HorizontalAlignment="Center" Height="46" VerticalAlignment="Top" Width="210" DisplayMemberPath="Адрес_пункта_выдачи" SelectedValuePath="ID" />
+            <Label Grid.Row="0" Content="Пункт выдачи:" HorizontalAlignment="Center" Height="44" Margin="1,63,0,0" VerticalAlignment="Top" Width="182" FontSize="25"/>
+            <Button x:Name="MakeOrderButton" Content="Сформировать заказ" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Width="200" Click="MakeOrderButton_Click" FontSize="19"/>
         </Grid>
-        <Label Grid.Row="0" HorizontalAlignment="Left" Content="Корзина:" Height="50" VerticalAlignment="Top" Width="108" FontSize="25"/>
+        <Label Grid.Row="0" HorizontalAlignment="Left" Content="Корзина:" Height="50" VerticalAlignment="Top" Width="180" FontSize="25"/>
         <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" Height="23" Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom" Width="92" Click="SnapBackButton_Click"/>
         <Label x:Name="resultSum" Content="Итого:" HorizontalAlignment="Right" Height="50" VerticalAlignment="Top" Width="238"  FontSize="25"/>
     </Grid>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="TestApp.UserWindows.UserOrderDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:commands="clr-namespace:TestApp.Commands"
+        xmlns:local="clr-namespace:TestApp"
+        mc:Ignorable="d"
+        Title="Детали заказа" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <local:BytesToImageConverter x:Key="ImageConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Height="45" Width="100" Click="SnapBackButton_Click"></Button>
+        <Label Content="Заказы:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="138" Grid.Row="0"/>
+        <DataGrid Grid.Row="1" x:Name="userOrders" IsReadOnly="True" HorizontalAlignment="Center" Height="350" VerticalAlignment="Top" Width="760" AutoGenerateColumns="False" Margin="0,2,0,0" RenderTransformOrigin="0.5,0.5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Товар" Binding="{Binding Товар.Наименование}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Количество товара" Binding="{Binding Количество_товара}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цена">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} рублей">
+                            <Binding Path="Товар.Цена" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Изображение">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Товар.Изображение, Converter={StaticResource ImageConverter}}" Width="100" Height="100"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestApp.UserWindows;
 
 namespace TestApp
 {
@@ -22,14 +23,23 @@ namespace TestApp
         public UserOrdersWindow()
         {
             InitializeComponent();
-            userOrders.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.ToList();
-        }
+            userOrders.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == DataTransfer.userID).ToList();        }
 
         private void SnapBackButton_Click(object sender, RoutedEventArgs e)
         {
             UserWindow window = new UserWindow();
             window.Show();
             this.Close();
+        }
+
+        private void userOrders_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (userOrders.SelectedItem != null)
+            {
+                Заказ selectedOrder = (Заказ)userOrders.SelectedItem;
+                UserOrderDetails detailWindow = new UserOrderDetails(selectedOrder);
+                detailWindow.Show();
+            }
         }
     }
 }

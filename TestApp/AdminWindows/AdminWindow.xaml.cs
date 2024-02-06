@@ -29,6 +29,7 @@ namespace TestApp
             InitializeComponent();
             GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
             TypesOfGoodsComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Вид_товара.ToList();
+            TypeSearchComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Вид_товара.ToList();
         }
 
         //private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)

@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
-        Title="Оформление заказа" MinHeight="800" MinWidth="800">
+        Title="Оформление заказа" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
     <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
-            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock Text="Выберите категорию" Width="175" TextAlignment="Left" VerticalAlignment="Top" />
-            <ComboBox Width="225" Height="25" Name="ComboElectronicType" SelectionChanged="ComboElectronicType_SelectionChanged" DisplayMemberPath="Название" VerticalAlignment="Top"/>
+            <ComboBox Width="225" Height="35" Name="ComboElectronicType" SelectionChanged="ComboElectronicType_SelectionChanged" DisplayMemberPath="Название" VerticalAlignment="Top"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <TextBlock Text="Введите поисковой запрос" Width="175" TextAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox Width="auto" Height="auto" x:Name="ElectroSearch" HorizontalAlignment="Right" VerticalAlignment="Top" TextChanged="ElectroSearch_TextChanged"/>
+            <TextBox Width="250" Height="40" x:Name="ElectroSearch" HorizontalAlignment="Right" VerticalAlignment="Top" TextChanged="ElectroSearch_TextChanged"/>
         </StackPanel>
 
-        <ListView HorizontalAlignment="Center" Height="800" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="800" Name="ProductsListView" Grid.Row="3">
+        <ListView HorizontalAlignment="Center" Height="400" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="auto" Name="ProductsListView" Grid.Row="3">
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить в корзину" Click="MenuItem_Click"/>
@@ -32,7 +32,7 @@
             </ListView.ContextMenu>
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxWidth="800"></WrapPanel>
+                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxWidth="1200"></WrapPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>

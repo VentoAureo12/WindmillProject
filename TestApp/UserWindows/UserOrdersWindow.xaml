@@ -5,24 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
-        Title="Ваши заказы" MinHeight="800" MinWidth="800">
+        Title="Ваши заказы" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Height="25" Width="100" Click="SnapBackButton_Click"></Button>
+        <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Height="45" Width="100" Click="SnapBackButton_Click"></Button>
         <Label Content="Заказы:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="138" Grid.Row="0"/>
-        <DataGrid Grid.Row="1" x:Name="userOrders" HorizontalAlignment="Center" Height="352" VerticalAlignment="Top" Width="800" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" x:Name="userOrders" MouseDoubleClick="userOrders_MouseDoubleClick" IsReadOnly="True" HorizontalAlignment="Center" Height="350" VerticalAlignment="Top" Width="760" AutoGenerateColumns="False" Margin="0,2,0,0" RenderTransformOrigin="0.5,0.5">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Номер заказа" Binding="{Binding ID_заказа}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Товар" Binding="{Binding Товар.Наименование}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Количество" Binding="{Binding Количество}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер заказа" Binding="{Binding ID}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Адрес пункта выдачи" Binding="{Binding Пункт_Выдачи.Адрес_пункта_выдачи}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Сумма заказа">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding StringFormat="{}{0} рублей">
+                            <Binding Path="Сумма_заказа" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
             </DataGrid.Columns>
-
         </DataGrid>
-
     </Grid>
 </Window>
