@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Height="450" Width="800">
+        Title="Окно регистрации" MinHeight="800" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -28,22 +28,22 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="21" >Регистрация</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" >Регистрация</TextBlock>
 
-        <TextBlock Grid.Row="1" Grid.Column="1">Логин</TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="2" x:Name="LoginBox"></TextBox>
-        <TextBlock Grid.Row="3" Grid.Column="1">Пароль</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="30">Логин</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="LoginBox" FontSize="30"></TextBox>
+        <TextBlock Grid.Row="3" Grid.Column="1" FontSize="30">Пароль</TextBlock>
         <PasswordBox Grid.Column="1" Grid.Row="4" x:Name="PasswordBox"></PasswordBox>
 
-        <TextBlock Grid.Row="5" Grid.Column="1">Имя</TextBlock>
-        <TextBox Grid.Column="1" Grid.Row="6" x:Name="nameBox"></TextBox>
-        <TextBlock Grid.Row="7" Grid.Column="1">Фамилия</TextBlock>
-        <TextBox Grid.Row="8" Grid.Column="1" x:Name="surnameBox"></TextBox>
-        <TextBlock Grid.Row="9" Grid.Column="1">Отчество</TextBlock>
-        <TextBox Grid.Row="10" Grid.Column="1" x:Name="patronicBox"></TextBox>
+        <TextBlock Grid.Row="5" Grid.Column="1" FontSize="30">Имя</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="6" x:Name="nameBox" FontSize="30"></TextBox>
+        <TextBlock Grid.Row="7" Grid.Column="1" FontSize="30">Фамилия</TextBlock>
+        <TextBox Grid.Row="8" Grid.Column="1" x:Name="surnameBox" FontSize="30"></TextBox>
+        <TextBlock Grid.Row="9" Grid.Column="1" FontSize="30">Отчество</TextBlock>
+        <TextBox Grid.Row="10" Grid.Column="1" x:Name="patronicBox" FontSize="30"></TextBox>
 
-        <Button Grid.Column="1" Grid.Row="16" x:Name="RegistrationComplete" Click="RegistrationComplete_Click">Зарегистрироваться</Button>
+        <Button Grid.Column="1" Height="40" Width="200" FontSize="19" Grid.Row="16" x:Name="RegistrationComplete" Click="RegistrationComplete_Click" HorizontalAlignment="Center">Зарегистрироваться</Button>
 
-        <Button x:Name="BackButton" Height="25" Width="100" Click="BackButton_Click">Назад</Button>
+        <Button x:Name="BackButton" Height="40" Width="100" Click="BackButton_Click">Назад</Button>
     </Grid>
 </Window>

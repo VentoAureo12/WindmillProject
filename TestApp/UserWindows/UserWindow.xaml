@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
-        Title="Оформление заказа" Height="1000" Width="800">
+        Title="Оформление заказа" MinHeight="800" MinWidth="800">
     <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -21,7 +21,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <TextBlock Text="Введите поисковой запрос" Width="175" TextAlignment="Left" VerticalAlignment="Top"/>
-            <TextBox Width="225" Height="21" x:Name="ElectroSearch" HorizontalAlignment="Right" VerticalAlignment="Top" TextChanged="ElectroSearch_TextChanged"/>
+            <TextBox Width="auto" Height="auto" x:Name="ElectroSearch" HorizontalAlignment="Right" VerticalAlignment="Top" TextChanged="ElectroSearch_TextChanged"/>
         </StackPanel>
 
         <ListView HorizontalAlignment="Center" Height="800" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="800" Name="ProductsListView" Grid.Row="3">

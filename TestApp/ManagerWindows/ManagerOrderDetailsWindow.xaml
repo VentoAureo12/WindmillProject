@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TestApp.ManagerWindows"
         xmlns:commands="clr-namespace:TestApp.Commands"
         mc:Ignorable="d"
-        Title="Окно содержания заказа" Height="450" Width="800">
+        Title="Окно содержания заказа" MinHeight="800" MinWidth="800">
     <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"></ColumnDefinition>

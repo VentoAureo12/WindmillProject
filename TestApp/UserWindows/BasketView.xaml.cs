@@ -24,69 +24,53 @@ namespace TestApp
     public partial class BasketView : Window
     {
         private List<BasketItemViewModel> BasketListViewItems;
-        private Dictionary<Товар, int> basketItemsCount;
         int price;
         public BasketView()
         {
             InitializeComponent();
             DeliveryInput.ItemsSource = ElectroShopBDEntities.GetContext().Пункт_Выдачи.ToList();
             BasketListViewItems = new List<BasketItemViewModel>();
-            basketItemsCount = new Dictionary<Товар, int>();
             foreach (int id in BasketClass.getBasket())
             {
                 Товар product = ElectroShopBDEntities.GetContext().Товар.Find(id);
                 if (product != null)
                 {
-                    if (basketItemsCount.ContainsKey(product))
+                    var existingItem = BasketListViewItems.FirstOrDefault(item => item.Product == product.ID);
+                    if (existingItem != null)
                     {
-                        basketItemsCount[product]++;
+                        existingItem.Quantity++;
                     }
                     else
                     {
-                        basketItemsCount.Add(product, 1);
+                        BasketItemViewModel newItem = new BasketItemViewModel
+                        {
+                            Изображение = product.Изображение,
+                            Наименование = product.Наименование,
+                            Цена = (int)product.Цена,
+                            Product = product.ID,
+                            Quantity = 1
+                        };
+                        newItem.QuantityChanged += (sender, args) => updateResultSum();
+
+                        BasketListViewItems.Add(newItem);
                     }
                 }
             }
-            BasketListView.ItemsSource = basketItemsCount.Select(pair => new BasketItemViewModel
-            {
-                Изображение = pair.Key.Изображение,
-                Наименование = pair.Key.Наименование,
-                Цена = (int)pair.Key.Цена,
-                Product = pair.Key.ID,
-                Quantity = pair.Value
-            });
+            BasketListView.ItemsSource = BasketListViewItems;
             updateResultSum();
         }
 
         private void updateResultSum()
         {
-            basketItemsCount.Clear();
-
-            foreach (var basketItem in BasketListView.Items)
-            {
-                if (basketItem is BasketItemViewModel item)
-                {
-                    basketItemsCount[item.Product] = item.Quantity;
-                }
-            }
-
             int totalSum = 0;
 
-            foreach (var pair in basketItemsCount)
+            foreach (var basketItem in BasketListViewItems)
             {
-                int productId = pair.Key;
-                int quantity = pair.Value;
-
-                Товар product = ElectroShopBDEntities.GetContext().Товар.Find(productId);
-
-                if (product != null)
-                {
-                    totalSum += quantity * product.Цена;
-                }
+                totalSum += basketItem.Quantity * basketItem.Цена;
             }
 
             resultSum.Content = $"Итого: {totalSum} руб";
-            price = (int)basketItemsCount.Sum(pair => pair.Value * pair.Key.Цена);
+            price = totalSum;
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
@@ -113,7 +97,7 @@ namespace TestApp
                 BasketItemViewModel selectedItem = button.DataContext as BasketItemViewModel;
                 if (selectedItem != null)
                 {
-                    selectedItem.Quantity++;
+                    selectedItem.Quantity++;    
                     updateResultSum();
                 }
             }
@@ -154,42 +138,44 @@ namespace TestApp
                     orderID++;
                 }
 
+                // Создаем заказ
+                Заказ orderData = new Заказ
+                {
+                    ID = orderID,
+                    ID_пользователя = DataTransfer.userID,
+                    Статус_заказа = 2,
+                    ID_пункта_выдачи = int.Parse(DeliveryInput.SelectedValue.ToString()),
+                    Сумма_заказа = price
+                };
 
-
-                Заказ orderData = new Заказ();
-
-                int deliveryID = int.Parse(DeliveryInput.SelectedValue.ToString());
-
-                orderData.ID = orderID;
-                orderData.ID_пользователя = DataTransfer.userID;
-                orderData.Статус_заказа = 2;
-                orderData.ID_пункта_выдачи = deliveryID;
-                orderData.Сумма_заказа = price;
-
+                // Добавляем заказ в контекст данных
                 ElectroShopBDEntities.GetContext().Заказ.Add(orderData);
 
-                foreach (int id in BasketClass.getBasket())
+                // Обрабатываем каждый товар в корзине
+                foreach (var basketItem in BasketListViewItems)
                 {
-                    Заказ_Товар orderItemData = new Заказ_Товар();
+                    // Создаем запись о товаре в заказе
+                    Заказ_Товар orderItemData = new Заказ_Товар
+                    {
+                        ID_заказа = orderID,
+                        ID_товара = basketItem.Product,
+                        Количество_товара = basketItem.Quantity
+                    };
 
-                    Товар productID = new Товар();
-
-                    productID = ElectroShopBDEntities.GetContext().Товар.Where(u => u.ID == id).FirstOrDefault();
-
-                    orderItemData.ID_товара = productID.ID;
-                    orderItemData.ID_заказа = orderID;
-                    //orderItemData.Количество_товара = ????
-
+                    // Добавляем запись о товаре в заказе в контекст данных
                     ElectroShopBDEntities.GetContext().Заказ_Товар.Add(orderItemData);
                 }
+
                 try
                 {
+                    // Сохраняем изменения в базе данных
                     ElectroShopBDEntities.GetContext().SaveChanges();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
                 }
+
                 MessageBox.Show("Заказ оформлен!");
             }
 
