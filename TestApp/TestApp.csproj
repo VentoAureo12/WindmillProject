@@ -230,6 +230,7 @@
     <Resource Include="Images\Undo.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="111.sql" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
