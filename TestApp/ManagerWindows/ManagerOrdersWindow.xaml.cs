@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace TestApp.ManagerWindows
     /// </summary>
     public partial class ManagerOrdersWindow : Window
     {
+        private bool isDirty = true;
         public ManagerOrdersWindow(Пользователь selectedUser)
         {
             if(selectedUser == null)
@@ -43,6 +45,73 @@ namespace TestApp.ManagerWindows
                 ManagerOrderDetailsWindow detailWindow = new ManagerOrderDetailsWindow(selectedOrder);
                 detailWindow.Show();
             }
+        }
+
+
+        private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OrdersData.IsReadOnly = false;
+            OrdersData.BeginEdit();
+            isDirty = false;
+        }
+
+        private void Edit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = isDirty;
+        }
+
+        private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !isDirty;
+        }
+
+        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            try
+            {
+                ElectroShopBDEntities.GetContext().SaveChanges();
+                MessageBox.Show("Информация сохранена");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+            isDirty = true;
+            OrdersData.IsReadOnly = true;
+        }
+
+        private void Undo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !isDirty;
+        }
+
+        private void Undo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var context = ElectroShopBDEntities.GetContext();
+            var changedEntries = context.ChangeTracker.Entries()
+                .Where(x => x.State != EntityState.Unchanged).ToList();
+
+            foreach (var entry in changedEntries)
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Modified:
+                        entry.CurrentValues.SetValues(entry.OriginalValues);
+                        entry.State = EntityState.Unchanged;
+                        break;
+                    case EntityState.Added:
+                        entry.State = EntityState.Detached;
+                        break;
+                    case EntityState.Deleted:
+                        entry.State = EntityState.Unchanged;
+                        break;
+                }
+            }
+            OrdersData.ItemsSource = null;
+            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
+            MessageBox.Show("Отмена действия");
+            isDirty = true;
+            OrdersData.IsReadOnly = true;
         }
     }
 }

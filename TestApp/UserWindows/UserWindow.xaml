@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
-        Title="Оформление заказа" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
+        Title="Оформление заказа" MaxHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
     <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>

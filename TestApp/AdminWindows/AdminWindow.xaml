@@ -110,8 +110,8 @@
         </DataGrid>
     </Grid>
     <Window.CommandBindings>
-        <!--<CommandBinding Command="{x:Static commands:DataCommands.Delete}" Executed="Delete_Executed"  CanExecute="Delete_CanExecute"/>
-        <CommandBinding Command="{x:Static commands:DataCommands.Edit}" Executed="Edit_Executed" CanExecute--><!--="Edit_CanExecute"/>-->
+        <CommandBinding Command="{x:Static commands:DataCommands.Delete}" Executed="Delete_Executed"  CanExecute="Delete_CanExecute"/>
+        <CommandBinding Command="{x:Static commands:DataCommands.Edit}" Executed="Edit_Executed" CanExecute="Edit_CanExecute"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
         <CommandBinding Command="Undo" CanExecute="Undo_CanExecute" Executed="Undo_Executed"/>
         <CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"/>

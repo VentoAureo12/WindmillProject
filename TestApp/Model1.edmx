@@ -18,7 +18,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Логин" Type="nvarchar" MaxLength="30" />
-          <Property Name="Пароль" Type="nvarchar" MaxLength="20" />
+          <Property Name="Пароль" Type="varchar(max)" />
           <Property Name="ID_пользователя" Type="int" />
           <Property Name="Последняя_дата_входа" Type="datetime" />
         </EntityType>
@@ -240,7 +240,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Логин" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Пароль" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Пароль" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ID_пользователя" Type="Int32" />
           <Property Name="Последняя_дата_входа" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Пользователь" Relationship="Self.FK_Данные_пользователя_Пользователь" FromRole="Данные_пользователя" ToRole="Пользователь" />

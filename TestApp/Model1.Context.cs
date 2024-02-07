@@ -16,10 +16,6 @@ namespace TestApp
     public partial class ElectroShopBDEntities : DbContext
     {
         private static ElectroShopBDEntities _context;
-        public ElectroShopBDEntities()
-            : base("name=ElectroShopBDEntities")
-        {
-        }
         public static ElectroShopBDEntities GetContext()
         {
             if (_context == null)
@@ -27,6 +23,10 @@ namespace TestApp
                 _context = new ElectroShopBDEntities();
             }
             return _context;
+        }
+        public ElectroShopBDEntities()
+            : base("name=ElectroShopBDEntities")
+        {
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -38,9 +39,10 @@ namespace TestApp
                 MessageBox.Show("Введите пароль");
                 return;
             }
+            var passwordMD5 = GetHash(PasswordBox.Password);
 
             Данные_пользователя userData = new Данные_пользователя();
-            userData = ElectroShopBDEntities.GetContext().Данные_пользователя.Where(u => u.Логин == LoginBox.Text && u.Пароль == PasswordBox.Password).FirstOrDefault();
+            userData = ElectroShopBDEntities.GetContext().Данные_пользователя.Where(u => u.Логин == LoginBox.Text && u.Пароль == passwordMD5).FirstOrDefault();
             if (userData == null)
             {
                 MessageBox.Show("Данные введены неверно");
@@ -63,6 +65,7 @@ namespace TestApp
                 else
                 {
                     AdminWindow window = new AdminWindow();
+                    userData.Последняя_дата_входа = DateTime.Now;
                     window.Show();
                     MessageBox.Show("Добро пожаловать, менеджер!");
                 }
@@ -75,6 +78,7 @@ namespace TestApp
                     MessageBox.Show("Данные введены неверно");
                     return;
                 }
+                userData.Последняя_дата_входа = DateTime.Now;
                 ManagerWindow window = new ManagerWindow();
                 window.Show();
                 MessageBox.Show("Добро пожаловать, администратор!");
@@ -90,6 +94,7 @@ namespace TestApp
                 }
                 else
                 {
+                    userData.Последняя_дата_входа = DateTime.Now;
                     UserWindow window = new UserWindow();
                     window.Show();
                     MessageBox.Show("Добро пожаловать!");
@@ -104,6 +109,13 @@ namespace TestApp
             window.Show();
             this.Close();
 
+        }
+
+        public static string GetHash(string input)
+        {
+            var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+            return Convert.ToBase64String(hash);
         }
     }
 }

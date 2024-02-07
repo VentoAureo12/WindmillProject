@@ -15,7 +15,7 @@
                 <ColumnDefinition Width="0.2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20" ></RowDefinition>
+                <RowDefinition Height="40" ></RowDefinition>
                 <RowDefinition Height="35"></RowDefinition>
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -68,12 +68,20 @@
                 </Grid>
             </Border>
 
-            <DataGrid  Name="OrdersData" Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" AutoGenerateColumns="False" Margin="0,0,0,10" RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" BorderThickness="3" Cursor="Hand" IsReadOnly="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Наименование товара" Binding="{Binding Товар.Наименование}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Товар.Цена}"></DataGridTextColumn>
+        <DataGrid  Name="OrdersData" Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" AutoGenerateColumns="False" Margin="0,0,0,10" RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" BorderThickness="3" Cursor="Hand" IsReadOnly="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Наименование товара" Binding="{Binding Товар.Наименование}" IsReadOnly="True"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Товар.Цена}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Header="Количество" Binding="{Binding Количество_товара}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static commands:DataCommands.Edit}" Executed="Edit_Executed" CanExecute="Edit_CanExecute"/>
+        <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
+        <CommandBinding Command="Undo" CanExecute="Undo_CanExecute" Executed="Undo_Executed"/>
+        <CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"/>
+        <CommandBinding Command="Find" CanExecute="Find_CanExecute" Executed="Find_Executed"/>
+        <CommandBinding Command="Refresh" CanExecute="Refresh_CanExecute" Executed="Refresh_Executed"/>
+    </Window.CommandBindings>   
 </Window>
