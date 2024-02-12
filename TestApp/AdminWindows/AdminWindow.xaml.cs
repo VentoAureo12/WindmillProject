@@ -32,15 +32,30 @@ namespace TestApp
             TypeSearchComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Вид_товара.ToList();
         }
 
-        //private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
-        //{
+        private void Delete_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var goodsForRemoving = GoodsData.SelectedItems.Cast<Товар>().ToList();
 
-        //}
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {goodsForRemoving.Count()} элементов?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    ElectroShopBDEntities.GetContext().Товар.RemoveRange(goodsForRemoving);
+                    ElectroShopBDEntities.GetContext().SaveChanges();
+                    MessageBox.Show("Удалено");
+                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
+        }
 
-        //private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        //{
-
-        //}
+        private void Delete_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = isDirty;
+        }
 
         private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
         {

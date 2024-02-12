@@ -80,8 +80,8 @@
         <CommandBinding Command="{x:Static commands:DataCommands.Edit}" Executed="Edit_Executed" CanExecute="Edit_CanExecute"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
         <CommandBinding Command="Undo" CanExecute="Undo_CanExecute" Executed="Undo_Executed"/>
-        <CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"/>
-        <CommandBinding Command="Find" CanExecute="Find_CanExecute" Executed="Find_Executed"/>
+        <!--<CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"/>-->
+        <!--<CommandBinding Command="Find" CanExecute="Find_CanExecute" Executed="Find_Executed"/>-->
         <CommandBinding Command="Refresh" CanExecute="Refresh_CanExecute" Executed="Refresh_Executed"/>
     </Window.CommandBindings>   
 </Window>

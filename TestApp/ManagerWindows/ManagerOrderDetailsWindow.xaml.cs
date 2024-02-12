@@ -21,6 +21,7 @@ namespace TestApp.ManagerWindows
     public partial class ManagerOrderDetailsWindow : Window
     {
         private bool isDirty = true;
+        List<Заказ_Товар> itemSource;
         public ManagerOrderDetailsWindow(Заказ selectedOrder)
         {
             if (selectedOrder== null)
@@ -29,7 +30,8 @@ namespace TestApp.ManagerWindows
                 return;
             }
             InitializeComponent();
-            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ_Товар.Where(u => u.ID_заказа == selectedOrder.ID).ToList();
+            itemSource = ElectroShopBDEntities.GetContext().Заказ_Товар.Where(u => u.ID_заказа == selectedOrder.ID).ToList();
+            OrdersData.ItemsSource = itemSource;
         }
 
         private void NameSearchField_TextChanged(object sender, TextChangedEventArgs e)
@@ -97,10 +99,22 @@ namespace TestApp.ManagerWindows
                 }
             }
             OrdersData.ItemsSource = null;
-            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
+            OrdersData.ItemsSource = itemSource;
             MessageBox.Show("Отмена действия");
             isDirty = true;
             OrdersData.IsReadOnly = true;
+        }
+
+        private void Refresh_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = isDirty;
+        }
+
+        private void Refresh_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OrdersData.ItemsSource = null;
+            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
+            isDirty = false;
         }
     }
 }
