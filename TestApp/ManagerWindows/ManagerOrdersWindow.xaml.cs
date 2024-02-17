@@ -22,21 +22,26 @@ namespace TestApp.ManagerWindows
     {
         private bool isDirty = true;
         List<Заказ> itemSource;
+        int userid;
         public ManagerOrdersWindow(Пользователь selectedUser)
         {
-            if(selectedUser == null)
+            userid = selectedUser.ID;
+            if (selectedUser == null)
             {
                 MessageBox.Show("Данное окно не работает по причине отсутствия данных");
                 return;
             }
             InitializeComponent();
-            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == selectedUser.ID).ToList();
-            itemSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == selectedUser.ID).ToList();
+            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == userid).ToList();
+            itemSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == userid).ToList();
+
+            StatusComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Статус_заказа.ToList();
+            DeliverySpotComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Пункт_Выдачи.ToList();
         }
 
-        private void NameSearchField_TextChanged(object sender, TextChangedEventArgs e)
+        public void NameSearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
-            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID.ToString().Contains(NameSearchField.Text)).ToList();
+            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID.ToString().Contains(NameSearchField.Text) && u.ID_пользователя == userid).ToList();
         }
 
         private void OrdersData_MouseDoubleClick(object sender, MouseButtonEventArgs e)

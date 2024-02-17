@@ -51,8 +51,7 @@
             <Button Name="Add" ToolTip="Добавить товар" Command="New">
                 <Image Source="/Images/Add.png"></Image>
             </Button>
-            <Button Name="Edit" ToolTip="Изменить описание товара">
-                <!--Command="{x:Static commands:DataCommands.Edit}"-->
+            <Button Name="Edit" ToolTip="Изменить описание товара" Command="{x:Static commands:DataCommands.Edit}">
                 <Image Source="/Images/Edit.png"></Image>
             </Button>
             <Button Name="Find" ToolTip="Найти товар" Command="Find">
@@ -77,7 +76,7 @@
                 <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Название</TextBlock>
                 <TextBox Text="" Grid.Row="1" x:Name="NameSearchField" TextChanged="NameSearchField_TextChanged"  Height="25"></TextBox>
                 <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">Тип товара</TextBlock>
-                <ComboBox Grid.Row="3" x:Name="TypeSearchComboBox" SelectionChanged="TypeSearchComboBox_SelectionChanged" HorizontalAlignment="Center" Height="45" Width="130" Text="Выберите тип товара"></ComboBox>
+                <ComboBox Grid.Row="3" x:Name="TypeSearchComboBox" SelectedValuePath="ID" DisplayMemberPath="Название" SelectionChanged="TypeSearchComboBox_SelectionChanged" HorizontalAlignment="Center" Height="45" Width="130"></ComboBox>
             </Grid>
         </Border>
         <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5">
