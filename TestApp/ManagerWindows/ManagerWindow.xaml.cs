@@ -30,64 +30,81 @@ namespace TestApp
         public ManagerWindow()
         {
             InitializeComponent();
+
+            // Инициализация DataGrid данными из базы
             ClientDataGrid.ItemsSource = ElectroShopBDEntities.GetContext().Пользователь.ToList().Where(u => u.Роль == 1);
         }
 
+        // Обработчик CanExecute команды Find (для поиска)
         private void Find_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-
+            // Ничего не делаем, оставляем пустым
         }
 
+        // Обработчик Executed команды Find (для поиска)
         private void Find_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            // Ничего не делаем, оставляем пустым
         }
 
+        // Обработчик изменения текста в поле поиска
         private void NameSearchField_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (NameSearchField.Text != null)
             {
                 try
                 {
-                    var DataSource = ElectroShopBDEntities.GetContext().Пользователь.Where
-                        (user => user.Фамилия.ToLower().Contains(NameSearchField.Text) ||
-                        user.Имя.ToLower().Contains(NameSearchField.Text) ||
-                        user.Отчество.ToLower().Contains(NameSearchField.Text)).ToList();
+                    // Выполнение поиска по ФИО пользователя в базе данных
+                    var DataSource = ElectroShopBDEntities.GetContext().Пользователь
+                        .Where(user => user.Фамилия.ToLower().Contains(NameSearchField.Text) ||
+                                       user.Имя.ToLower().Contains(NameSearchField.Text) ||
+                                       user.Отчество.ToLower().Contains(NameSearchField.Text))
+                        .ToList();
 
+                    // Фильтрация результатов для отображения только пользователей с ролью 1 (Менеджер)
                     ClientDataGrid.ItemsSource = DataSource.Where(u => u.Роль == 1).ToList();
                 }
                 catch
                 {
-
+                    // Обработка возможных ошибок
                 }
             }
         }
 
+        // Обработчик двойного клика по элементу DataGrid (пользователю)
         private void ClientDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ClientDataGrid.SelectedItem != null)
             {
+                // Получение выбранного пользователя
                 Пользователь selectedUser = (Пользователь)ClientDataGrid.SelectedItem;
+
+                // Открытие окна с заказами выбранного пользователя
                 ManagerOrdersWindow userOrdersWindow = new ManagerOrdersWindow(selectedUser);
                 userOrdersWindow.Show();
             }
         }
 
+        // Обработчик нажатия кнопки "Отчет"
         private void Report_Click(object sender, RoutedEventArgs e)
         {
             if (ClientDataGrid.SelectedItem != null)
             {
+                // Получение выбранного пользователя
                 if (ClientDataGrid.SelectedItem is Пользователь selectedUser)
                 {
+                    // Получение данных о пользователе из базы данных
                     Пользователь user = ElectroShopBDEntities.GetContext().Пользователь.Find(selectedUser.ID);
                     if (user != null)
                     {
+                        // Генерация и отображение отчета по заказам пользователя
                         GenerateReport(user);
                     }
                 }
             }
         }
 
+        // Генерация и сохранение отчета в формате Word
         private void GenerateReport(Пользователь user)
         {
             // Создаем приложение Word

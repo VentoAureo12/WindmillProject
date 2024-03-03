@@ -7,31 +7,52 @@
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
         Title="Детали заказа" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
+
+    <!-- Ресурсы окна -->
     <Window.Resources>
+        <!-- Конвертер для преобразования массива байт в изображение -->
         <local:BytesToImageConverter x:Key="ImageConverter"/>
     </Window.Resources>
+
+    <!-- Главная сетка окна -->
     <Grid>
+        <!-- Распределение строк в сетке -->
         <Grid.RowDefinitions>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
+
+        <!-- Кнопка "Назад" -->
         <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Height="45" Width="100" Click="SnapBackButton_Click"></Button>
+
+        <!-- Заголовок "Заказы" -->
         <Label Content="Заказы:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="138" Grid.Row="0"/>
+
+        <!-- Таблица для отображения деталей заказа -->
         <DataGrid Grid.Row="1" x:Name="userOrders" IsReadOnly="True" HorizontalAlignment="Center" Height="350" VerticalAlignment="Top" Width="760" AutoGenerateColumns="False" Margin="0,2,0,0" RenderTransformOrigin="0.5,0.5">
             <DataGrid.Columns>
+                <!-- Столбец "Товар" -->
                 <DataGridTextColumn Header="Товар" Binding="{Binding Товар.Наименование}"></DataGridTextColumn>
+
+                <!-- Столбец "Количество товара" -->
                 <DataGridTextColumn Header="Количество товара" Binding="{Binding Количество_товара}"></DataGridTextColumn>
+
+                <!-- Столбец "Цена" -->
                 <DataGridTextColumn Header="Цена">
                     <DataGridTextColumn.Binding>
+                        <!-- Форматирование текста в столбце с использованием MultiBinding и StringFormat -->
                         <MultiBinding StringFormat="{}{0} рублей">
                             <Binding Path="Товар.Цена" />
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
+
+                <!-- Столбец "Изображение" -->
                 <DataGridTemplateColumn Header="Изображение">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+                            <!-- Отображение изображения с использованием конвертера -->
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{Binding Товар.Изображение, Converter={StaticResource ImageConverter}}" Width="100" Height="100"/>
                             </StackPanel>

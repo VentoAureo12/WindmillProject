@@ -21,6 +21,7 @@ namespace TestApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        int tries;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,11 +44,28 @@ namespace TestApp
 
             Данные_пользователя userData = new Данные_пользователя();
             userData = ElectroShopBDEntities.GetContext().Данные_пользователя.Where(u => u.Логин == LoginBox.Text && u.Пароль == passwordMD5).FirstOrDefault();
-            if (userData == null)
+            if (userData == null && tries <= 3)
             {
                 MessageBox.Show("Данные введены неверно");
+                tries++;
                 return;
             }
+            if (tries >= 3 && userData == null)
+            {
+                DateTime date = DateTime.Now;
+                MessageBox.Show($"Вы ввели неправильные данные больше трёх раз. Система заблокирована на {10} секунд");
+                while (date.AddSeconds(10) > DateTime.Now)
+                {
+                    LoginBox.IsEnabled = false;
+                    PasswordBox.IsEnabled = false;
+                    EnterButton.IsEnabled = false;
+                }
+                LoginBox.IsEnabled = true;
+                PasswordBox.IsEnabled = true;
+                EnterButton.IsEnabled = true;
+                return;
+            }
+
             DataTransfer.userID = userData.Пользователь.ID;
             DataTransfer.Name = userData.Пользователь.Имя;
             DataTransfer.Surname = userData.Пользователь.Фамилия;

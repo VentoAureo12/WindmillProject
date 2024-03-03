@@ -98,14 +98,6 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-            <!--<DataGrid.RowValidationErrorTemplate>
-                <ControlTemplate>
-                    <Grid Margin="0,-2,0,-2" ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}},Path=(Validation.Errors)[0].ErrorContent}">
-                        <Ellipse  StrokeThickness="0"  Fill="Red"  Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
-                        <TextBlock  Text="!"  FontSize="{TemplateBinding  FontSize}" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </DataGrid.RowValidationErrorTemplate>-->
         </DataGrid>
     </Grid>
     <Window.CommandBindings>

@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="Окно менеджера" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
     <Grid>
+        <!-- Определение колонок и строк для основного Grid -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -26,6 +27,8 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+
+        <!-- Меню для основных команд -->
         <Menu Grid.Row="0" Grid.ColumnSpan="4">
             <MenuItem Header="Действие">
                 <MenuItem Header="Отменить" Command="Undo" ></MenuItem>
@@ -42,11 +45,15 @@
                 <MenuItem Header="Отчет"/>
             </MenuItem>
         </Menu>
+
+        <!-- Панель инструментов с кнопкой поиска -->
         <ToolBar Name="ToolBar1" Grid.Row="1" Grid.ColumnSpan="4">
             <Button Name="Find" ToolTip="Найти товар" Command="Find">
                 <Image Source="/Images/Search.png"></Image>
             </Button>
         </ToolBar>
+
+        <!-- Панель для визуализации поля поиска -->
         <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5" x:Name="BorderFind" Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
@@ -54,18 +61,20 @@
                     <RowDefinition Height="0.05*"/>
                     <RowDefinition Height="0.03*"/>
                     <RowDefinition Height="0.05*"/>
-
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Поиск</TextBlock>
                 <TextBox Text="" Grid.Row="1" x:Name="NameSearchField" Height="25" TextChanged="NameSearchField_TextChanged"/>
             </Grid>
         </Border>
+
+        <!-- DataGrid для отображения клиентских данных -->
         <DataGrid x:Name="ClientDataGrid" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="8" MouseDoubleClick="ClientDataGrid_MouseDoubleClick" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Фамилия" Binding="{Binding Фамилия, Mode=TwoWay}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Имя, Mode=TwoWay}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Отчество" Binding="{Binding Отчество, Mode=Twoway}"></DataGridTextColumn>
             </DataGrid.Columns>
+            <!-- Контекстное меню для DataGrid -->
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Отчёт" Click="Report_Click"/>
@@ -73,8 +82,9 @@
             </DataGrid.ContextMenu>
         </DataGrid>
     </Grid>
+
+    <!-- Привязка обработчиков команд -->
     <Window.CommandBindings>
         <CommandBinding Command="Find" CanExecute="Find_CanExecute"  Executed="Find_Executed"/>
     </Window.CommandBindings>
 </Window>
-

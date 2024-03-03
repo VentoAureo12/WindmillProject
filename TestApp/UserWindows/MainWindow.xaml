@@ -1,4 +1,5 @@
-﻿<Window x:Class="TestApp.MainWindow"
+﻿<!-- Определение главного окна приложения -->
+<Window x:Class="TestApp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +7,9 @@
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
         Title="Окно авторизации" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
+    <!-- Определение сетки для размещения элементов -->
     <Grid>
+        <!-- Определение строк и столбцов в сетке -->
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -26,15 +29,25 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
+
+        <!-- Заголовок окна с настройками шрифта и выравнивания -->
         <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" >Авторизация</TextBlock>
 
+        <!-- Текстовое поле для ввода логина с настройками шрифта и выравнивания -->
         <TextBlock Grid.Row="3" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" >Логин</TextBlock>
         <TextBox Grid.Column="1" Grid.Row="4" x:Name="LoginBox" FontSize="20"></TextBox>
+
+        <!-- Текстовое поле для ввода пароля (пароль вводится скрытым) с настройками шрифта и выравнивания -->
         <TextBlock Grid.Row="5" Grid.Column="1" FontSize="25" HorizontalAlignment="Center" >Пароль</TextBlock>
         <PasswordBox Grid.Column="1" Grid.Row="6" x:Name="PasswordBox" FontSize="20"></PasswordBox>
+
+        <!-- Кнопка "Продолжить без регистрации" с настройками шрифта, размеров и выравнивания -->
         <Button x:Name="ContinueWithoutButton" Grid.Column="1" Grid.Row="10" Width="220" HorizontalAlignment="Center" Height="40" BorderThickness="0" >Продолжить без регистрации</Button>
 
+        <!-- Кнопка "Войти" с настройками шрифта, размеров и выравнивания, а также привязкой обработчика события Click -->
         <Button Grid.Column="1" Grid.Row="8" x:Name="EnterButton" Click="EnterButton_Click" HorizontalAlignment="Center" Width="150" Height="30" >Войти</Button>
+
+        <!-- Кнопка "Регистрация" с настройками шрифта, размеров и выравнивания, а также привязкой обработчика события Click -->
         <Button Grid.Column="1" Grid.Row="9" Width="150" x:Name="RegistrationButton" Click="RegistrationButton_Click" HorizontalAlignment="Center" Height="40" >Регистрация</Button>
     </Grid>
 </Window>
