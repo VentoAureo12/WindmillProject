@@ -30,8 +30,9 @@ namespace TestApp.ManagerWindows
                 return;
             }
             InitializeComponent();
-            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == selectedUser.ID).ToList();
             itemSource = ElectroShopBDEntities.GetContext().Заказ.Where(u => u.ID_пользователя == selectedUser.ID).ToList();
+            OrdersData.ItemsSource = itemSource;
+            DeliveryPointComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Пункт_Выдачи.ToList();
         }
 
         private void NameSearchField_TextChanged(object sender, TextChangedEventArgs e)
@@ -110,7 +111,7 @@ namespace TestApp.ManagerWindows
                 }
             }
             OrdersData.ItemsSource = null;
-            OrdersData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
+            OrdersData.ItemsSource = itemSource;
             MessageBox.Show("Отмена действия");
             isDirty = true;
             OrdersData.IsReadOnly = true;

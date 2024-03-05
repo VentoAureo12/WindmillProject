@@ -7,43 +7,50 @@
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
         Title="Меню администратора" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
+    <!-- Определение ресурсов -->
     <Window.Resources>
         <local:BytesToImageConverter x:Key="ImageConverter"/>
     </Window.Resources>
     <Grid>
+        <!-- Определение структуры сетки -->
         <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="4*"></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
-        <ColumnDefinition></ColumnDefinition>
-        <ColumnDefinition Width="0.2*"></ColumnDefinition>
-    </Grid.ColumnDefinitions>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="40" ></RowDefinition>
-        <RowDefinition Height="35"></RowDefinition>
-        <RowDefinition Height="50"></RowDefinition>
-        <RowDefinition></RowDefinition>
-        <RowDefinition></RowDefinition>
-        <RowDefinition></RowDefinition>
-        <RowDefinition></RowDefinition>
-        <RowDefinition></RowDefinition>
-        <RowDefinition></RowDefinition>
-        <RowDefinition></RowDefinition>
-    </Grid.RowDefinitions>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" ></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- Меню -->
         <Menu Grid.Row="0" Grid.ColumnSpan="4">
-        <MenuItem Header="Действие" >
-            <MenuItem Header="Отменить" Command="Undo" ></MenuItem>
-            <Separator></Separator>
-            <MenuItem Header="Создать" Command="New"></MenuItem>
+            <MenuItem Header="Действие" >
+                <MenuItem Header="Отменить" Command="Undo" ></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Создать" Command="New"></MenuItem>
                 <MenuItem Header="Редактировать">
-                    <!--Command="{x:Static commands:DataCommands.Edit}-->" </MenuItem>
-            <MenuItem Header="Сохранить" Command="Save"></MenuItem>
-            <MenuItem Header="Найти" Command="Find"/>
-            <MenuItem Header="Обновить" Command="Refresh"/>
-            <Separator></Separator>
-            <MenuItem Header="Удалить"/>
-            <MenuItem Header="Отчет"/>
-        </MenuItem>
+                    <!--Command="{x:Static commands:DataCommands.Edit}--> "
+                </MenuItem>
+                <MenuItem Header="Сохранить" Command="Save"></MenuItem>
+                <MenuItem Header="Найти" Command="Find"/>
+                <MenuItem Header="Обновить" Command="Refresh"/>
+                <Separator></Separator>
+                <MenuItem Header="Удалить"/>
+                <MenuItem Header="Отчет"/>
+            </MenuItem>
         </Menu>
+
+        <!-- Панель инструментов -->
         <ToolBar Name="ToolBar1" Grid.Row="1" Grid.ColumnSpan="4">
             <Button Name="Undo" ToolTip="Отмена действия" Command="Undo">
                 <Image Source="/Images/Undo.png"></Image>
@@ -51,8 +58,7 @@
             <Button Name="Add" ToolTip="Добавить товар" Command="New">
                 <Image Source="/Images/Add.png"></Image>
             </Button>
-            <Button Name="Edit" ToolTip="Изменить описание товара">
-                <!--Command="{x:Static commands:DataCommands.Edit}"-->
+            <Button Name="Edit" ToolTip="Изменить описание товара" Command="{x:Static commands:DataCommands.Edit}">
                 <Image Source="/Images/Edit.png"></Image>
             </Button>
             <Button Name="Find" ToolTip="Найти товар" Command="Find">
@@ -65,6 +71,8 @@
                 <Image Source="/Images/Refresh.png" ></Image>
             </Button>
         </ToolBar>
+
+        <!-- Панель поиска -->
         <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5" x:Name="BorderFind" Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
@@ -72,7 +80,6 @@
                     <RowDefinition Height="0.05*"/>
                     <RowDefinition Height="0.03*"/>
                     <RowDefinition Height="0.05*"/>
-
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Название</TextBlock>
                 <TextBox Text="" Grid.Row="1" x:Name="NameSearchField" TextChanged="NameSearchField_TextChanged"  Height="25"></TextBox>
@@ -80,9 +87,13 @@
                 <ComboBox Grid.Row="3" x:Name="TypeSearchComboBox" SelectionChanged="TypeSearchComboBox_SelectionChanged" HorizontalAlignment="Center" Height="45" Width="130" Text="Выберите тип товара"></ComboBox>
             </Grid>
         </Border>
+
+        <!-- Область отображения данных (DataGrid) -->
         <Grid Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5">
         </Grid>
-        <DataGrid Name="GoodsData" Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" AutoGenerateColumns="False" Margin="0,0,0,10" RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" BorderThickness="3" Cursor="Hand" IsReadOnly="False">
+
+        <!-- Таблица данных (DataGrid) -->
+        <DataGrid Name="GoodsData" Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" AutoGenerateColumns="False" Margin="0,0,0,10" RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" BorderThickness="3" Cursor="Hand" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название" Binding="{Binding Наименование, Mode=TwoWay}"></DataGridTextColumn>
                 <DataGridComboBoxColumn x:Name="TypesOfGoodsComboBox" Header="Вид товара" DisplayMemberPath="Название" SelectedValueBinding="{Binding Вид_товара, Mode=TwoWay}" SelectedValuePath="ID"></DataGridComboBoxColumn>
@@ -99,16 +110,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-            <!--<DataGrid.RowValidationErrorTemplate>
-                <ControlTemplate>
-                    <Grid Margin="0,-2,0,-2" ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}},Path=(Validation.Errors)[0].ErrorContent}">
-                        <Ellipse  StrokeThickness="0"  Fill="Red"  Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
-                        <TextBlock  Text="!"  FontSize="{TemplateBinding  FontSize}" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center"/>
-                    </Grid>
-                </ControlTemplate>
-            </DataGrid.RowValidationErrorTemplate>-->
         </DataGrid>
     </Grid>
+
+    <!-- Привязка команд к обработчикам событий -->
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static commands:DataCommands.Delete}" Executed="Delete_Executed"  CanExecute="Delete_CanExecute"/>
         <CommandBinding Command="{x:Static commands:DataCommands.Edit}" Executed="Edit_Executed" CanExecute="Edit_CanExecute"/>

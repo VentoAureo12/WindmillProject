@@ -67,7 +67,7 @@ namespace TestApp
                     AdminWindow window = new AdminWindow();
                     userData.Последняя_дата_входа = DateTime.Now;
                     window.Show();
-                    MessageBox.Show("Добро пожаловать, менеджер!");
+                    MessageBox.Show("Добро пожаловать, администратор!");
                 }
             }
             else
@@ -81,7 +81,7 @@ namespace TestApp
                 userData.Последняя_дата_входа = DateTime.Now;
                 ManagerWindow window = new ManagerWindow();
                 window.Show();
-                MessageBox.Show("Добро пожаловать, администратор!");
+                MessageBox.Show("Добро пожаловать, менеджер!");
             }
             else
 

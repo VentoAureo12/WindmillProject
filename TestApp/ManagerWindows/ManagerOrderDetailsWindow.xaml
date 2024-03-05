@@ -8,80 +8,88 @@
         mc:Ignorable="d"
         Title="Окно содержания заказа" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
     <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="0.2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" ></RowDefinition>
-                <RowDefinition Height="35"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Menu Grid.Row="0" Grid.ColumnSpan="4">
-                <MenuItem Header="Действие">
-                    <MenuItem Header="Отменить" Command="Undo" ></MenuItem>
-                    <Separator></Separator>
-                    <MenuItem Header="Создать" Command="New"></MenuItem>
-                    <MenuItem Header="Редактировать" Command="{x:Static commands:DataCommands.Edit}" />
-                    <MenuItem Header="Сохранить" Command="Save"></MenuItem>
-                    <MenuItem Header="Найти" Command="Find"/>
-                    <MenuItem Header="Обновить" Command="Refresh"/>
-                    <Separator></Separator>
-                </MenuItem>
-            </Menu>
-            <ToolBar Grid.Row="1" Grid.ColumnSpan="4">
-                <Button Name="Undo" ToolTip="Отмена действия" Command="Undo">
-                    <Image Source="/Images/Undo.png"></Image>
-                </Button>
-                <Button Name="Edit" ToolTip="Изменить заказ" Command="{x:Static commands:DataCommands.Edit}">
-                    <Image Source="/Images/Edit.png"></Image>
-                </Button>
-                <Button Name="Find" ToolTip="Найти заказ" Command="Find">
-                    <Image Source="/Images/Search.png"></Image>
-                </Button>
-                <Button Name="Save" ToolTip="Сохранить изменения" Command="Save">
-                    <Image Source="/Images/Save.png"></Image>
-                </Button>
-                <Button Name="Refresh" Command="Refresh" ToolTip="Обновить данные по заказам">
-                    <Image Source="/Images/Refresh.png" ></Image>
-                </Button>
-            </ToolBar>
-            <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5" x:Name="BorderFind" Visibility="Visible">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.03*"/>
-                        <RowDefinition Height="0.05*"/>
-                        <RowDefinition Height="0.03*"/>
-                        <RowDefinition Height="0.05*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Поиск</TextBlock>
-                    <TextBox Text="" Grid.Row="1" x:Name="NameSearchField" Height="25" TextChanged="NameSearchField_TextChanged"/>
-                </Grid>
-            </Border>
+        <!-- Определение структуры сетки -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" ></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <!-- Меню для действий -->
+        <Menu Grid.Row="0" Grid.ColumnSpan="4">
+            <MenuItem Header="Действие">
+                <MenuItem Header="Отменить" Command="Undo" ></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Создать" Command="New"></MenuItem>
+                <MenuItem Header="Редактировать" Command="{x:Static commands:DataCommands.Edit}" />
+                <MenuItem Header="Сохранить" Command="Save"></MenuItem>
+                <MenuItem Header="Найти" Command="Find"/>
+                <MenuItem Header="Обновить" Command="Refresh"/>
+                <Separator></Separator>
+            </MenuItem>
+        </Menu>
+
+        <!-- Панель инструментов с кнопками -->
+        <ToolBar Grid.Row="1" Grid.ColumnSpan="4">
+            <Button Name="Undo" ToolTip="Отмена действия" Command="Undo">
+                <Image Source="/Images/Undo.png"></Image>
+            </Button>
+            <Button Name="Edit" ToolTip="Изменить заказ" Command="{x:Static commands:DataCommands.Edit}">
+                <Image Source="/Images/Edit.png"></Image>
+            </Button>
+            <Button Name="Find" ToolTip="Найти заказ" Command="Find">
+                <Image Source="/Images/Search.png"></Image>
+            </Button>
+            <Button Name="Save" ToolTip="Сохранить изменения" Command="Save">
+                <Image Source="/Images/Save.png"></Image>
+            </Button>
+            <Button Name="Refresh" Command="Refresh" ToolTip="Обновить данные по заказам">
+                <Image Source="/Images/Refresh.png" ></Image>
+            </Button>
+        </ToolBar>
+
+        <!-- Граница для функции поиска -->
+        <Border Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Grid.RowSpan="5" x:Name="BorderFind" Visibility="Visible">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.03*"/>
+                    <RowDefinition Height="0.05*"/>
+                    <RowDefinition Height="0.03*"/>
+                    <RowDefinition Height="0.05*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">Поиск</TextBlock>
+                <TextBox Text="" Grid.Row="1" x:Name="NameSearchField" Height="25" TextChanged="NameSearchField_TextChanged"/>
+            </Grid>
+        </Border>
+
+        <!-- DataGrid для отображения деталей заказа -->
         <DataGrid  Name="OrdersData" Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" AutoGenerateColumns="False" Margin="0,0,0,10" RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" BorderThickness="3" Cursor="Hand" IsReadOnly="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Наименование товара" Binding="{Binding Товар.Наименование}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Header="Цена" Binding="{Binding Товар.Цена}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Количество" Binding="{Binding Количество_товара}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Количество" Binding="{Binding Количество_товара}" IsReadOnly="True"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
+
+    <!-- Привязки команд для Edit, Save, Undo, Refresh -->
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static commands:DataCommands.Edit}" Executed="Edit_Executed" CanExecute="Edit_CanExecute"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
         <CommandBinding Command="Undo" CanExecute="Undo_CanExecute" Executed="Undo_Executed"/>
-        <!--<CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"/>-->
-        <!--<CommandBinding Command="Find" CanExecute="Find_CanExecute" Executed="Find_Executed"/>-->
         <CommandBinding Command="Refresh" CanExecute="Refresh_CanExecute" Executed="Refresh_Executed"/>
-    </Window.CommandBindings>   
+    </Window.CommandBindings>
 </Window>

@@ -72,7 +72,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Номер заказа" Binding="{Binding ID}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Header="Сумма заказа" Binding="{Binding Сумма_заказа}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Пункт выдачи заказа" Binding="{Binding Пункт_Выдачи.Адрес_пункта_выдачи}"></DataGridTextColumn>
+                <DataGridComboBoxColumn x:Name="DeliveryPointComboBox" Header="Пункт выдачи заказа" DisplayMemberPath="Адрес_пункта_выдачи" SelectedValueBinding="{Binding ID_пункта_выдачи, Mode=TwoWay}" SelectedValuePath="ID"></DataGridComboBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="0.4*"/>
+            <ColumnDefinition Width="0.6*"/>
         </Grid.ColumnDefinitions>
         <ListView HorizontalAlignment="Left" Grid.Row="1" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MaxHeight="600" MaxWidth="600" VerticalAlignment="Top" Name="BasketListView">
             <ListView.ContextMenu>
@@ -70,12 +70,12 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ComboBox x:Name="DeliveryInput" Grid.Row="1" HorizontalAlignment="Center" Height="46" VerticalAlignment="Top" Width="210" DisplayMemberPath="Адрес_пункта_выдачи" SelectedValuePath="ID" />
+            <ComboBox x:Name="DeliveryInput" Grid.Row="1" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Width="260" DisplayMemberPath="Адрес_пункта_выдачи" SelectedValuePath="ID" />
             <Label Grid.Row="0" Content="Пункт выдачи:" HorizontalAlignment="Center" Height="44" Margin="1,63,0,0" VerticalAlignment="Top" Width="182" FontSize="25"/>
             <Button x:Name="MakeOrderButton" Content="Сформировать заказ" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Height="50" VerticalAlignment="Top" Width="200" Click="MakeOrderButton_Click" FontSize="19"/>
         </Grid>
         <Label Grid.Row="0" HorizontalAlignment="Left" Content="Корзина:" Height="50" VerticalAlignment="Top" Width="180" FontSize="25"/>
-        <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" Height="23" Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom" Width="92" Click="SnapBackButton_Click"/>
+        <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" Height="43" Grid.Row="2" Grid.Column="0"  VerticalAlignment="Bottom" Width="92" Click="SnapBackButton_Click"/>
         <Label x:Name="resultSum" Content="Итого:" HorizontalAlignment="Right" Height="50" VerticalAlignment="Top" Width="238"  FontSize="25"/>
     </Grid>
 </Window>
