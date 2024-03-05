@@ -68,11 +68,12 @@
             </Grid>
         </Border>
 
-        <DataGrid  Name="OrdersData" Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" MouseDoubleClick="OrdersData_MouseDoubleClick" AutoGenerateColumns="False" Margin="0,0,0,10" RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" BorderThickness="3" Cursor="Hand" IsReadOnly="False">
+        <DataGrid  Name="OrdersData" Grid.Row="2" Grid.Column="0" Grid.RowSpan="10" Grid.ColumnSpan="2" MouseDoubleClick="OrdersData_MouseDoubleClick" AutoGenerateColumns="False" Margin="0,0,0,10" RowBackground="#FFE6D3EF" AlternatingRowBackground="#FC96CFD4" BorderBrush="#FF1F33EB" BorderThickness="3" Cursor="Hand" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Номер заказа" Binding="{Binding ID}" IsReadOnly="True"></DataGridTextColumn>
                 <DataGridTextColumn Header="Сумма заказа" Binding="{Binding Сумма_заказа}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridComboBoxColumn x:Name="DeliveryPointComboBox" Header="Пункт выдачи заказа" DisplayMemberPath="Адрес_пункта_выдачи" SelectedValueBinding="{Binding ID_пункта_выдачи, Mode=TwoWay}" SelectedValuePath="ID"></DataGridComboBoxColumn>
+                <DataGridComboBoxColumn x:Name="DeliverySpotComboBox" Header="Пункт выдачи заказа" DisplayMemberPath="Адрес_пункта_выдачи" SelectedValueBinding="{Binding ID_пункта_выдачи, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID"></DataGridComboBoxColumn>
+                <DataGridComboBoxColumn x:Name="StatusComboBox" Header="Cтатус заказа" DisplayMemberPath="Описание_статуса" SelectedValueBinding="{Binding Статус_заказа, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ID"></DataGridComboBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
@@ -80,8 +81,6 @@
         <CommandBinding Command="{x:Static commands:DataCommands.Edit}" Executed="Edit_Executed" CanExecute="Edit_CanExecute"/>
         <CommandBinding Command="Save" CanExecute="Save_CanExecute" Executed="Save_Executed"/>
         <CommandBinding Command="Undo" CanExecute="Undo_CanExecute" Executed="Undo_Executed"/>
-        <!--<CommandBinding Command="New" CanExecute="New_CanExecute" Executed="New_Executed"/>-->
-        <!--<CommandBinding Command="Find" CanExecute="Find_CanExecute" Executed="Find_Executed"/>-->
         <CommandBinding Command="Refresh" CanExecute="Refresh_CanExecute" Executed="Refresh_Executed"/>
     </Window.CommandBindings>
 </Window>

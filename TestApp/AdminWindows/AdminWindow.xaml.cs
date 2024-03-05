@@ -31,7 +31,11 @@ namespace TestApp
             // Инициализация данных в DataGrid и комбобоксах
             GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
             TypesOfGoodsComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Вид_товара.ToList();
-            TypeSearchComboBox.ItemsSource = ElectroShopBDEntities.GetContext().Вид_товара.ToList();
+            var typesOfGoods = ElectroShopBDEntities.GetContext().Вид_товара.ToList();
+
+            typesOfGoods.Insert(0, new Вид_товара { Название = "Все" });
+
+            TypeSearchComboBox.ItemsSource = typesOfGoods;
         }
 
         // Удаление товаров
@@ -164,6 +168,7 @@ namespace TestApp
                 MessageBox.Show(ex.Message.ToString());
             }
             isDirty = false;
+            GoodsData.IsReadOnly = true;
         }
 
         // Проверка возможности выполнения команды поиска
@@ -195,6 +200,7 @@ namespace TestApp
             GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
             isDirty = false;
             BorderFind.Visibility = Visibility.Hidden;
+
         }
 
         // Обработка изменений в поле поиска по наименованию товара
@@ -217,27 +223,30 @@ namespace TestApp
         // Обработка изменений в комбобоксе для фильтрации товаров по типу
         private void TypeSearchComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch (TypeSearchComboBox.SelectedIndex)
+            try
             {
-                case 0:
-                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
-                    break;
+                // Получаем выбранный вид товара
+                Вид_товара selectedType = TypeSearchComboBox.SelectedItem as Вид_товара;
 
-                case 1:
-                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.Where(u => u.Вид_товара == 1).ToList();
-                    break;
-                case 2:
-                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.Where(u => u.Вид_товара == 2).ToList();
-                    break;
-                case 3:
-                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.Where(u => u.Вид_товара == 3).ToList();
-                    break;
-                case 4:
-                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.Where(u => u.Вид_товара == 4).ToList();
-                    break;
-                case 5:
-                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.Where(u => u.Вид_товара == 5).ToList();
-                    break;
+                if (selectedType != null && selectedType.Название != "Все")
+                {
+                    // Фильтруем товары по выбранному виду
+                    List<Товар> filteredGoods = ElectroShopBDEntities.GetContext().Товар
+                        .Where(t => t.Вид_товара1.Название == selectedType.Название)
+                        .ToList();
+
+                    // Обновляем источник данных для GoodsData
+                    GoodsData.ItemsSource = filteredGoods;
+                }
+                else
+                {
+                    // Если выбран "Все", обновляем источник данных без фильтрации
+                    GoodsData.ItemsSource = ElectroShopBDEntities.GetContext().Товар.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

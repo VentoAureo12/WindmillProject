@@ -7,19 +7,32 @@
         mc:Ignorable="d"
         Title="Ваши заказы" MinHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
     <Grid>
+        <!-- Распределение строк в Grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
+
+        <!-- Кнопка "Назад" -->
         <Button x:Name="SnapBackButton" Content="Назад" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="2" Height="45" Width="100" Click="SnapBackButton_Click"></Button>
+
+        <!-- Заголовок "Заказы" -->
         <Label Content="Заказы:" HorizontalAlignment="Left" Height="36" Margin="10,10,0,0" VerticalAlignment="Top" Width="138" Grid.Row="0"/>
+
+        <!-- Таблица для отображения заказов -->
         <DataGrid Grid.Row="1" x:Name="userOrders" MouseDoubleClick="userOrders_MouseDoubleClick" IsReadOnly="True" HorizontalAlignment="Center" Height="350" VerticalAlignment="Top" Width="760" AutoGenerateColumns="False" Margin="0,2,0,0" RenderTransformOrigin="0.5,0.5">
             <DataGrid.Columns>
+                <!-- Столбец "Номер заказа" -->
                 <DataGridTextColumn Header="Номер заказа" Binding="{Binding ID}"></DataGridTextColumn>
+
+                <!-- Столбец "Адрес пункта выдачи" -->
                 <DataGridTextColumn Header="Адрес пункта выдачи" Binding="{Binding Пункт_Выдачи.Адрес_пункта_выдачи}"></DataGridTextColumn>
+
+                <!-- Столбец "Сумма заказа" -->
                 <DataGridTextColumn Header="Сумма заказа">
                     <DataGridTextColumn.Binding>
+                        <!-- Форматирование текста в столбце с использованием MultiBinding и StringFormat -->
                         <MultiBinding StringFormat="{}{0} рублей">
                             <Binding Path="Сумма_заказа" />
                         </MultiBinding>

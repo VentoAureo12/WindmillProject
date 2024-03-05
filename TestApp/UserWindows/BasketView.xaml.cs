@@ -23,23 +23,40 @@ namespace TestApp
     /// </summary>
     public partial class BasketView : Window
     {
+        // Список элементов корзины с привязкой к ViewModel
         private List<BasketItemViewModel> BasketListViewItems;
+
+        // Общая стоимость заказа
         int price;
+
+        // Конструктор класса
         public BasketView()
         {
             InitializeComponent();
+
+            // Загрузка пунктов выдачи из базы данных в ComboBox
             DeliveryInput.ItemsSource = ElectroShopBDEntities.GetContext().Пункт_Выдачи.ToList();
+
+            // Инициализация списка элементов корзины
             BasketListViewItems = new List<BasketItemViewModel>();
+
+            // Заполнение списка элементов корзины на основе содержимого корзины пользователя
             foreach (int id in BasketClass.getBasket())
             {
                 Товар product = ElectroShopBDEntities.GetContext().Товар.Find(id);
+
+                // Проверка, что товар не является null
                 if (product != null)
                 {
+                    // Поиск существующего элемента корзины с тем же товаром
                     var existingItem = BasketListViewItems.FirstOrDefault(item => item.Product == product.ID);
+
+                    // Если товар уже есть в корзине, увеличиваем количество
                     if (existingItem != null)
                     {
                         existingItem.Quantity++;
                     }
+                    // Иначе создаем новый элемент корзины
                     else
                     {
                         BasketItemViewModel newItem = new BasketItemViewModel
@@ -50,85 +67,112 @@ namespace TestApp
                             Product = product.ID,
                             Quantity = 1
                         };
+
+                        // Улавливаем событие изменения количества
                         newItem.QuantityChanged += (sender, args) => updateResultSum();
 
                         BasketListViewItems.Add(newItem);
                     }
                 }
             }
+
+            // Установка источника данных для ListView
             BasketListView.ItemsSource = BasketListViewItems;
+
+            // Обновление итоговой суммы
             updateResultSum();
         }
 
+        // Метод для обновления итоговой суммы заказа
         private void updateResultSum()
         {
             int totalSum = 0;
 
+            // Подсчет общей стоимости заказа
             foreach (var basketItem in BasketListViewItems)
             {
                 totalSum += basketItem.Quantity * basketItem.Цена;
             }
 
+            // Обновление текста итоговой суммы
             resultSum.Content = $"Итого: {totalSum} руб";
             price = totalSum;
         }
 
+        // Обработчик события клика по пункту контекстного меню (удаление товара из корзины)
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            System.ComponentModel.IEditableCollectionView items = BasketListView.Items; //Cast to interface
+            // Получение выделенного товара в ListView
+            Товар selectedItem = BasketListView.SelectedItems[0] as Товар;
 
-            Товар selectedItem = BasketListView.SelectedItems[0] as Товар; // cast item to product
+            // Удаление товара из корзины
+            BasketClass.Delete((int)selectedItem.ID);
 
-            BasketClass.Delete((int)selectedItem.ID); // remove product from basket
+            // Удаление товара из ListView
+            BasketListViewItems.Remove(BasketListView.SelectedItem as BasketItemViewModel);
 
-
-            items.Remove(BasketListView.SelectedItem); // remove product from listView
-
-
-
+            // Обновление итоговой суммы
             updateResultSum();
         }
 
+        // Обработчик клика по кнопке увеличения количества товара
         private void AddItem_Click(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
+
             if (button != null)
             {
+                // Получение ViewModel выделенного товара
                 BasketItemViewModel selectedItem = button.DataContext as BasketItemViewModel;
-                if (selectedItem != null)
+
+                // Увеличение количества товара
+                selectedItem.Quantity++;
+
+                // Обновление итоговой суммы
+                updateResultSum();
+            }
+        }
+
+        // Обработчик клика по кнопке уменьшения количества товара
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+
+            if (button != null)
+            {
+                // Получение ViewModel выделенного товара
+                BasketItemViewModel selectedItem = button.DataContext as BasketItemViewModel;
+
+                // Уменьшение количества товара, если оно больше 1
+                if (selectedItem != null && selectedItem.Quantity > 1)
                 {
-                    selectedItem.Quantity++;    
+                    selectedItem.Quantity--;
+
+                    // Обновление итоговой суммы
                     updateResultSum();
                 }
             }
         }
 
-        private void RemoveItem_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            if (button != null)
-            {
-                BasketItemViewModel selectedItem = button.DataContext as BasketItemViewModel;
-                if (selectedItem != null && selectedItem.Quantity > 1)
-                {
-                    selectedItem.Quantity--;
-                    updateResultSum();
-                }
-            }
-        }
+        // Обработчик клика по кнопке "Назад"
         private void SnapBackButton_Click(object sender, RoutedEventArgs e)
         {
+            // Возвращение к окну пользователя и закрытие текущего окна
             UserWindow window = new UserWindow();
             window.Show();
             this.Close();
         }
-        
+
+        // Обработчик клика по кнопке "Оформить заказ"
         private void MakeOrderButton_Click(object sender, RoutedEventArgs e)
         {
-
+            // Проверка подтверждения оформления заказа от пользователя
             if (MessageBox.Show($"Вы точно хотите оформить заказ", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
+                // Получение максимального ID заказа из базы данных
                 int orderID = (int)ElectroShopBDEntities.GetContext().Заказ.Max(x => x.ID);
+
+                // Увеличение ID заказа (если это первый заказ, устанавливаем ID равным 1)
                 if (orderID == 0)
                 {
                     orderID = 1;
@@ -138,7 +182,7 @@ namespace TestApp
                     orderID++;
                 }
 
-                // Создаем заказ
+                // Создание объекта заказа
                 Заказ orderData = new Заказ
                 {
                     ID = orderID,
@@ -148,13 +192,13 @@ namespace TestApp
                     Сумма_заказа = price
                 };
 
-                // Добавляем заказ в контекст данных
+                // Добавление заказа в контекст данных
                 ElectroShopBDEntities.GetContext().Заказ.Add(orderData);
 
-                // Обрабатываем каждый товар в корзине
+                // Обработка каждого товара в корзине
                 foreach (var basketItem in BasketListViewItems)
                 {
-                    // Создаем запись о товаре в заказе
+                    // Создание записи о товаре в заказе
                     Заказ_Товар orderItemData = new Заказ_Товар
                     {
                         ID_заказа = orderID,
@@ -162,13 +206,13 @@ namespace TestApp
                         Количество_товара = basketItem.Quantity
                     };
 
-                    // Добавляем запись о товаре в заказе в контекст данных
+                    // Добавление записи о товаре в заказе в контекст данных
                     ElectroShopBDEntities.GetContext().Заказ_Товар.Add(orderItemData);
                 }
 
                 try
                 {
-                    // Сохраняем изменения в базе данных
+                    // Сохранение изменений в базе данных
                     ElectroShopBDEntities.GetContext().SaveChanges();
                 }
                 catch (Exception ex)
@@ -176,9 +220,9 @@ namespace TestApp
                     MessageBox.Show(ex.ToString());
                 }
 
+                // Оповещение пользователя об успешном оформлении заказа
                 MessageBox.Show("Заказ оформлен!");
             }
-
         }
     }
 }

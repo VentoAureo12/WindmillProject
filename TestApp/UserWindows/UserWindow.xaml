@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:TestApp"
         mc:Ignorable="d"
         Title="Оформление заказа" MaxHeight="600" MinWidth="800" WindowStartupLocation="CenterOwner">
+    <!-- Grid содержит разметку окна -->
     <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        <!-- Определение строк внутри Grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
@@ -14,54 +16,69 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <!-- Панель для выбора категории -->
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <TextBlock Text="Выберите категорию" Width="175" TextAlignment="Left" VerticalAlignment="Top" />
             <ComboBox Width="225" Height="35" Name="ComboElectronicType" SelectionChanged="ComboElectronicType_SelectionChanged" DisplayMemberPath="Название" VerticalAlignment="Top"/>
         </StackPanel>
 
+        <!-- Панель для ввода поискового запроса -->
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <TextBlock Text="Введите поисковой запрос" Width="175" TextAlignment="Left" VerticalAlignment="Top"/>
             <TextBox Width="250" Height="40" x:Name="ElectroSearch" HorizontalAlignment="Right" VerticalAlignment="Top" TextChanged="ElectroSearch_TextChanged"/>
         </StackPanel>
 
+        <!-- ListView для отображения продуктов -->
         <ListView HorizontalAlignment="Center" Height="400" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" VerticalAlignment="Top" Width="auto" Name="ProductsListView" Grid.Row="3">
+            <!-- Контекстное меню для добавления продукта в корзину -->
             <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить в корзину" Click="MenuItem_Click"/>
                 </ContextMenu>
             </ListView.ContextMenu>
+            <!-- Определение панели для отображения элементов внутри ListView -->
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" MaxWidth="1200"></WrapPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            <!-- Определение шаблона отображения каждого элемента в ListView -->
             <ListView.ItemTemplate>
                 <DataTemplate>
+                    <!-- Grid для отображения данных о продукте -->
                     <Grid Margin="20" Width="350" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <!-- Определение строк внутри Grid для элементов отображения -->
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
 
+                        <!-- Изображение продукта -->
                         <Image Width="100" Grid.Row="1" Stretch="UniformToFill" HorizontalAlignment="Center" Margin="5">
+                            <!-- Привязка изображения через Binding -->
                             <Image.Source>
                                 <Binding Path="Изображение">
                                 </Binding>
                             </Image.Source>
                         </Image>
+                        <!-- Наименование продукта -->
                         <TextBlock VerticalAlignment="Center" TextAlignment="Center" Width="390" 
                     TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5 5" FontSize="26"
                     Grid.Row="0" Text="{Binding Наименование}">
 
                         </TextBlock>
+                        <!-- Цена продукта -->
                         <TextBlock Grid.Row="2" Text="{Binding Цена}"></TextBlock>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <!-- Кнопка для открытия корзины -->
         <Button Grid.Row="0" x:Name="btnEnterBasket" Content="Корзина" Height="34" Width="120" HorizontalAlignment="Right" Click="Button_Click" Visibility="Hidden"/>
+        <!-- Кнопка для очистки корзины -->
         <Button Grid.Row="0" x:Name="btnClearBasket" Content="Очистить корзину" Height="34" Width="88" HorizontalAlignment="Left" FontSize="9" Click="Button_Click_1" Visibility="Hidden" />
+        <!-- Метка для отображения имени пользователя -->
         <Label x:Name="userNameBox" Content=""  Height="34"  Width="232" MouseDoubleClick="userNameBox_MouseDoubleClick"/>
     </Grid>
 </Window>
